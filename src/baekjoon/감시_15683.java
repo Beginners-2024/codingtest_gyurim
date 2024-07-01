@@ -3,17 +3,16 @@ package baekjoon;
 import java.io.*;
 import java.util.*;
 
-// 사각지대 최소
 public class 감시_15683 {
     private static int n, m;
     private static int[][] board;
-    private static List<List<Integer>>[] cctv;
-    private static List<CCTV> boardCCTV;
+    private static List<List<Integer>>[] cctv; // CCTV 종류 별 감시할 수 있는 방향을 담은 배열
+    private static List<CCTV> boardCCTV; // 보드 위에 존재하는 CCTV
     private static int minArea = Integer.MAX_VALUE;
 
     private static class CCTV {
         int x, y;
-        int type;
+        int type; // 종류 (1~5번)
 
         CCTV(int x, int y, int type) {
             this.x = x;
@@ -58,14 +57,12 @@ public class 감시_15683 {
         int cur = boardCCTV.get(k).type;
 
         for (int i = 0; i < cctv[cur].size(); i++) {
-            cctvDir[k] = i;
+            cctvDir[k] = i; // 보드 위에 있는 CCTV의 방향을 지정
             setDir(k + 1, cctvDir);
         }
     }
 
-    private static int checkArea(int[] cctvDir) { // cctv의 방향 정보가 저장되어 있음
-
-
+    private static int checkArea(int[] cctvDir) {
         int[][] temp = new int[n][m];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
@@ -79,7 +76,7 @@ public class 감시_15683 {
             int y = boardCCTV.get(i).y;
             int dir = cctvDir[i];
 
-            for (int j = 0; j < cctv[type].get(dir).size(); j++) {
+            for (int j = 0; j < cctv[type].get(dir).size(); j++) { // cctv[type].get(dir): CCTV 방향 리스트 (1번 CCTV를 제외하고는 감시 방향이 2개 이상이기 때문)
                 int d = cctv[type].get(dir).get(j);
 
                 if (d == 1) { // 우
@@ -122,7 +119,6 @@ public class 감시_15683 {
                 if (temp[i][j] == 0) area++;
             }
         }
-
         return area;
     }
 

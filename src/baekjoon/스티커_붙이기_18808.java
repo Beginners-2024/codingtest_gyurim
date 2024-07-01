@@ -33,7 +33,6 @@ public class 스티커_붙이기_18808 {
 
             // 스티커 붙일 수 있는지 체크
             for (int dir = 0; dir < 4; dir++) { // 90도 방향 회전
-                // rotate();
                 int _r = sticker.length;
                 int _c = sticker[0].length;
 
@@ -41,22 +40,20 @@ public class 스티커_붙이기_18808 {
 
                 // 붙일 수 있는지 체크
                 if (canAttached(sticker)) {
-                    break;
+                    break; // 가장 최상단 + 가장 좌측 위치를 최우선으로 선택
                 }
             }
         }
-
         System.out.println(countSticker());
     }
 
-    private static int countSticker() {
+    private static int countSticker() { // 스티커가 붙은 칸의 수 리턴
         int count = 0;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 if (board[i][j] == 1) count++;
             }
         }
-
         return count;
     }
 
@@ -73,17 +70,16 @@ public class 스티커_붙이기_18808 {
         for (int i = 0; i + r <= n; i++) {
             for (int j = 0; j + c <= m; j++) {
                 // i, j는 시작 지점
-                if (!isDuplicated(i, j, sticker)) {
+                if (!isDuplicated(i, j, sticker)) { // 붙이고자 하는 자리에 다른 스티커 없으므로 해당 스티커를 붙일 수 있는 상태
                     attached(i, j, sticker);
                     return true;
                 }
             }
         }
-
         return canAttach;
     }
 
-    private static void attached(int x, int y, int[][] sticker) {
+    private static void attached(int x, int y, int[][] sticker) { // 보드에 스티커 부착
         int r = sticker.length;
         int c = sticker[0].length;
 
@@ -103,7 +99,7 @@ public class 스티커_붙이기_18808 {
         for (int i = 0; i < r; i++) {
             for (int j = 0; j < c; j++) {
                 if (sticker[i][j] == 1) {
-                    if (board[sx + i][sy + j] == 1) return true; // 중복
+                    if (board[sx + i][sy + j] == 1) return true; // 이미 다른 스티커가 붙어있는 상태이므로 true 리턴
                 }
             }
         }
@@ -120,7 +116,6 @@ public class 스티커_붙이기_18808 {
                 rotated[i][j] = sticker[r - j - 1][i];
             }
         }
-
         return rotated;
     }
 }
