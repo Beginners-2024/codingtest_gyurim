@@ -18,7 +18,7 @@ import java.util.*;
  * 메모리: 44636 KB, 시간: 480 ms
  **************************************************************************************************/
 
-public class 회의실_배장_1931 {
+public class 회의실_배정_1931 {
     private static int n;
     private static Meeting[] meetings;
 
