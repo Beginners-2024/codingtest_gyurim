@@ -12,7 +12,7 @@ import java.util.*;
  * 이때, 특정 수는 M개가 있기에 100,000 * 100,000 = 10^10 > 10^9 => 시간초과 발생
  * MlogN => 10^5 * 5 < 10^9 => 시간초과 발생 X
  *------------------------------------------------------------------------------------
- * 시간복잡도: O(MlogN)
+ * 시간복잡도: O((N+M)logN)
  * 메모리: 48644 KB, 시간: 708 ms
  **************************************************************************************/
 
@@ -31,14 +31,14 @@ public class 수찾기_1920 {
         for (int i = 0; i < n; i++) {
             A[i] = Integer.parseInt(st.nextToken());
         }
-        Arrays.sort(A);
+        Arrays.sort(A); // O(NlogN)
 
         st = new StringTokenizer(br.readLine());
         int m = Integer.parseInt(st.nextToken());
 
         st = new StringTokenizer(br.readLine());
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < m; i++) {
+        for (int i = 0; i < m; i++) { // O(MlogN)
             int num = Integer.parseInt(st.nextToken());
             sb.append(getExistState(num) + "\n");
         }
