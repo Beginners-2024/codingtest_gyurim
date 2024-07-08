@@ -13,34 +13,65 @@ import java.util.*;
  **************************************************************************************/
 
 public class 숫자카드2_10816 {
+    private static int n;
+    private static int[] card;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
+        StringBuilder sb = new StringBuilder();
 
-        int n = Integer.parseInt(st.nextToken());
-        Map<Integer, Integer> map = new HashMap<>();
+        n = Integer.parseInt(st.nextToken());
+        card = new int[n];
 
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i < n; i++) {
-            int num = Integer.parseInt(st.nextToken());
-            if (map.containsKey(num)) {
-                map.put(num, map.get(num) + 1);
-            } else {
-                map.put(num, 1);
-            }
+            card[i] = Integer.parseInt(st.nextToken());
         }
+
+        Arrays.sort(card); // O(NlogN)
 
         st = new StringTokenizer(br.readLine());
         int m = Integer.parseInt(st.nextToken());
 
         st = new StringTokenizer(br.readLine());
-        StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < m; i++) { // O(m)
+        for (int i = 0; i < m; i++) { // O(MlogN)
             int num = Integer.parseInt(st.nextToken());
-            if (map.containsKey(num)) sb.append(map.get(num) + " "); // O(1)
-            else sb.append("0 ");
+            int lowerBound = getLowerBound(num);
+            int upperBound = getUpperBound(num);
+            sb.append(upperBound - lowerBound).append(" ");
         }
+
         System.out.println(sb);
+    }
+
+    private static int getLowerBound(int num) {
+        int left = 0;
+        int right = n;
+
+        while (left < right) {
+            int idx = (left + right) / 2;
+            if (num <= card[idx]) {
+                right = idx;
+            } else { // num > card[idx]
+                left = idx + 1;
+            }
+        }
+        return right;
+    }
+
+    private static int getUpperBound(int num) {
+        int left = 0;
+        int right = n;
+
+        while (left < right) {
+            int idx = (left + right) / 2;
+            if (num < card[idx]) {
+                right = idx;
+            } else { // num >= card[idx]
+                left = idx + 1;
+            }
+        }
+        return right;
     }
 }
