@@ -26,7 +26,7 @@ public class 회사에_있는_사람_7785 {
             String name = st.nextToken();
             String status = st.nextToken();
 
-            if (status.equals("leave")) {
+            if (status.equals("leave")) { // 자바의 문자열 비교
                 log.put(name, false); // 평균: O(1)
             } else {
                 log.put(name, true); // O(1)
