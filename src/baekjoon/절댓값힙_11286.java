@@ -7,8 +7,8 @@ import java.util.*;
  * 1 ≤ N ≤ 100,000 = 10^5
  * -2^31 < x < 2^31
  *------------------------------------------------------------------------------------
- * 시간복잡도:
- * 메모리:  KB, 시간:  ms
+ * 시간복잡도: O(NlogN)
+ * 메모리: 25028 KB, 시간: 328 ms
  **************************************************************************************/
 
 public class 절댓값힙_11286 {
@@ -42,10 +42,10 @@ public class 절댓값힙_11286 {
 
             if (x == 0) {
                 if (pq.isEmpty()) sb.append("0").append("\n");
-                else sb.append(pq.poll().origin).append("\n");
+                else sb.append(pq.poll().origin).append("\n"); // poll(): O(logN)
             } else {
                 // 배열에 x를 넣는 연산
-                pq.offer(new Number(Math.abs(x), x));
+                pq.offer(new Number(Math.abs(x), x)); // offer(): O(logN)
             }
         }
 
