@@ -4,16 +4,20 @@ import java.io.*;
 import java.util.*;
 
 /**************************************************************************************
- * 1 ≤ N ≤ 100,000
+ * 2 ≤ N ≤ 100
+ * 1 ≤ L ≤ N
  *
- * [회고]
- * 이 문제는 몇 번의 비교가 필요한지 구하는 문제이기 때문에,
- * 만약 카드 묶음이 1개라면 비교할 필요가 없음
- * 따라서 답은 0이 출력되어야 함
- * => 문제를 잘 읽자..
+ * 1. 0열 ~ N-1열까지, 길의 개수를 체크
+ * 2. 0행 ~ N-1행까지, 길의 개수를 체크
+ * 3. 길이 될 수 있는지 체크
+ *      - 모든 칸을 체크하며,
+ *          - 단차 차이가 있어 슬로프를 놓아야하는데 조건에 맞지 않아 슬로프를 놓지 못한다면 => 길이 될 수 없다 판정
+ *          - 단차 차이가 없어 슬로프를 놓지 않아도 되는 경우거나, 슬로프를 놓을 수 있다면 => 길이 될 수 있다 판정
+ *
+ * 위 과정을 수행하며 길의 개수를 체크한 뒤, 출력
  *------------------------------------------------------------------------------------
- * 시간복잡도: O(NlogN)
- * 메모리: 25460 KB, 시간: 368 ms
+ * 시간복잡도: O(N * N * L)
+ * 메모리: 14920 KB, 시간: 156 ms
  **************************************************************************************/
 
 public class 경사로_14890 {
@@ -42,7 +46,7 @@ public class 경사로_14890 {
         int roadCount = 0;
 
         // 열 - 길의 갯수를 체크
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < N; i++) { // O(NN)
             boolean isRoad = true;
 
             for (int j = 1; j < N; j++) {
@@ -53,7 +57,7 @@ public class 경사로_14890 {
                 if (slope[j][i]) continue;
 
                 // 슬로프 설치할 수 있는 지 체크
-                if (!isLayColumnSlope(j, i, prev, cur)) {
+                if (!isLayColumnSlope(j, i, prev, cur)) { // O(L)
                     isRoad = false;
                     break;
                 }
@@ -65,7 +69,7 @@ public class 경사로_14890 {
         slope = new boolean[N][N];
 
         // 행 - 길의 갯수를 체크
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < N; i++) { // O(NN)
             boolean isRoad = true;
 
             for (int j = 1; j < N; j++) {
@@ -91,7 +95,7 @@ public class 경사로_14890 {
         System.out.println(roadCount);
     }
 
-    private static boolean isLayRowSlope(int x, int y, int prev, int cur) {
+    private static boolean isLayRowSlope(int x, int y, int prev, int cur) { // O(L)
         if (prev + 1 == cur) { // (1, 2) 처럼 올라가는 형태
             for (int diff = 1; diff <= L; diff++) {
                 int ny = y - diff;
@@ -127,7 +131,7 @@ public class 경사로_14890 {
         return true;
     }
 
-    private static boolean isLayColumnSlope(int x, int y, int prev, int cur) {
+    private static boolean isLayColumnSlope(int x, int y, int prev, int cur) { // O(L)
         if (prev + 1 == cur) { // (1, 1) 처럼 올라가는 형태
             for (int diff = 1; diff <= L; diff++) {
                 int nx = x - diff;
