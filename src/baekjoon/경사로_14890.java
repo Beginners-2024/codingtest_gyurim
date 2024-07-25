@@ -96,8 +96,11 @@ public class 경사로_14890 {
     }
 
     private static boolean isLayRowSlope(int x, int y, int prev, int cur) { // O(L)
+        // prev: 이전 칸의 높이
+        // cur: 현재 칸의 높이
+        // x, y: 현재 칸의 인덱스
         if (prev + 1 == cur) { // (1, 2) 처럼 올라가는 형태
-            for (int diff = 1; diff <= L; diff++) {
+            for (int diff = 1; diff <= L; diff++) { // L 개의 칸에 대해서, 슬로프를 놓을 수 있을 지 조건 체크
                 int ny = y - diff;
 
                 // 슬로프를 설치할 수 없는 조건 (이른 종료)
@@ -108,12 +111,12 @@ public class 경사로_14890 {
 
             // 슬로프 설치 가능한 경우이기에 슬로프 설치
             for (int diff = 1; diff <= L; diff++) {
-                int ny = y - diff;
+                int ny = y - diff; // 체크할 칸
                 slope[x][ny] = true;
             }
         } else if (prev == cur + 1) { // (2, 1) 처럼 내려가는 형태
-            for (int diff = 1; diff <= L; diff++) {
-                int ny = y + diff - 1;
+            for (int diff = 1; diff <= L; diff++) { // L 개의 칸에 대해서, 슬로프를 놓을 수 있을 지 조건 체크
+                int ny = y + diff - 1; // 체크할 칸
 
                 // 슬로프를 설치할 수 없는 조건 (이른 종료)
                 if (oob(x, ny)) return false;
@@ -132,9 +135,12 @@ public class 경사로_14890 {
     }
 
     private static boolean isLayColumnSlope(int x, int y, int prev, int cur) { // O(L)
-        if (prev + 1 == cur) { // (1, 1) 처럼 올라가는 형태
-            for (int diff = 1; diff <= L; diff++) {
-                int nx = x - diff;
+        // prev: 이전 칸의 높이
+        // cur: 현재 칸의 높이
+        // x, y: 현재 칸의 인덱스
+        if (prev + 1 == cur) { // (1, 2) 처럼 올라가는 형태
+            for (int diff = 1; diff <= L; diff++) { // L 개의 칸에 대해서, 슬로프를 놓을 수 있을 지 조건 체크
+                int nx = x - diff; // 체크할 칸
 
                 // 슬로프를 설치할 수 없는 조건 (이른 종료)
                 if (oob(nx, y)) return false;
@@ -148,8 +154,8 @@ public class 경사로_14890 {
                 slope[nx][y] = true;
             }
         } else if (prev == cur + 1) { // (2, 1) 처럼 내려가는 형태
-            for (int diff = 1; diff <= L; diff++) {
-                int nx = x + diff - 1;
+            for (int diff = 1; diff <= L; diff++) { // L 개의 칸에 대해서, 슬로프를 놓을 수 있을 지 조건 체크
+                int nx = x + diff - 1; // 체크할 칸
 
                 // 슬로프를 설치할 수 없는 조건 (이른 종료)
                 if (oob(nx, y)) return false;
