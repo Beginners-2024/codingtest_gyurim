@@ -10,7 +10,7 @@ import java.util.*;
  *
  * 시간 제한: 1초
  *------------------------------------------------------------------------------------
- * 시간복잡도: O(N)
+ * 시간복잡도: O(V + E) = O(N + N-1) = O(N)
  * 메모리: 78160 KB, 시간: 672 ms
  **************************************************************************************/
 
@@ -37,7 +37,7 @@ public class 트리와_쿼리_15681 {
             edge[i] = new ArrayList<>();
         }
 
-        for (int i = 0; i < n - 1; i++) {
+        for (int i = 0; i < n - 1; i++) { // O(E)
             st = new StringTokenizer(br.readLine());
             int u = Integer.parseInt(st.nextToken());
             int v = Integer.parseInt(st.nextToken());
@@ -56,7 +56,7 @@ public class 트리와_쿼리_15681 {
         System.out.print(sb);
     }
 
-    private static int setParent(int node) {
+    private static int setParent(int node) { // O(V + E)
         for (Integer next : edge[node]) {
             if (parent[next] != 0) continue;
 
