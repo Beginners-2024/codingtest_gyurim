@@ -19,6 +19,7 @@ public class 동전_9084 {
             List<Integer> coins = new ArrayList<>();
             StringTokenizer st = new StringTokenizer(br.readLine());
 
+            // 동전 금액은 오름차순 형태로 주어짐
             for (int i = 0; i < n; i++) {
                 coins.add(Integer.parseInt(st.nextToken()));
             }
